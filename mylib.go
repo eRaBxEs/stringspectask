@@ -123,3 +123,11 @@ func storyStats(in string) (short, long string, avg float32, listWithAvg []strin
 
 	return
 }
+
+// generate : this will likely take me longer than 30mins because of the spec string pattern
+func generate(in bool) (out string) {
+	if in {
+
+	}
+	return out
+}
