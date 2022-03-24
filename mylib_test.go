@@ -69,3 +69,39 @@ func TestWholeStory(t *testing.T) {
 		}
 	}
 }
+
+func TestStoryStats(t *testing.T) {
+	myTest := []struct {
+		inputName                 string
+		expectedOutputShort       string
+		expectedOutputLong        string
+		expectedOutputAvg         int
+		expectedOutputListWithAvg []string
+		expectedError             error
+	}{
+		{inputName: "23-ab-48-caba-56-haha", expectedOutputShort: "ab", expectedOutputLong: "caba",
+			expectedOutputAvg: 3, expectedOutputListWithAvg: []string{}, expectedError: nil},
+	}
+
+	for _, tt := range myTest {
+
+		actualOutputShort, actualOutputLong, actualOutputAvg, actualOutputListWithAvg, actualError := storyStats(tt.inputName)
+
+		if actualError != tt.expectedError {
+			t.Error("should not get an error")
+		}
+		if actualOutputShort != tt.expectedOutputShort {
+			t.Errorf("got %v, want %v", actualOutputShort, tt.expectedOutputShort)
+		}
+		if actualOutputLong != tt.expectedOutputLong {
+			t.Errorf("got %v, want %v", actualOutputLong, tt.expectedOutputLong)
+		}
+		if actualOutputAvg != tt.expectedOutputAvg {
+			t.Errorf("got %v, want %v", actualOutputAvg, tt.expectedOutputAvg)
+		}
+
+		if len(actualOutputListWithAvg) != len(tt.expectedOutputListWithAvg) {
+			t.Errorf("got length of %v, want length of %v", actualOutputListWithAvg, tt.expectedOutputListWithAvg)
+		}
+	}
+}
