@@ -2,9 +2,17 @@ package mylib
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
+	"time"
 )
+
+const charset = "abcdefghijklmnopqrstuvwxyz"
+const digitset = "0123456789"
+
+var seededRand *rand.Rand = rand.New(
+	rand.NewSource(time.Now().UnixNano()))
 
 // testValidity : took a little bit over 20 mins
 func testValidity(in string) (out bool) {
@@ -130,4 +138,20 @@ func generate(in bool) (out string) {
 
 	}
 	return out
+}
+
+func StringWithCharset(length int, charset string) string {
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+func StringWithDigitset(length int, digitset string) string {
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = digitset[seededRand.Intn(len(digitset))]
+	}
+	return string(b)
 }
