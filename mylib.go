@@ -70,7 +70,7 @@ func averageNumber(in string) (out int, err error) {
 }
 
 // wholeStory : took like 10 mins
-func wholeStory(in string) (out string) {
+func wholeStory(in string) (out string, err error) {
 	sliceContainer := strings.Split(in, "-")
 
 	var wordContainer string
@@ -89,7 +89,7 @@ func wholeStory(in string) (out string) {
 
 	}
 
-	return wordContainer
+	return wordContainer, nil
 
 }
 
