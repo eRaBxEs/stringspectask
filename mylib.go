@@ -1,6 +1,7 @@
 package mylib
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -25,4 +26,32 @@ func testValidity(in string) (out bool) {
 	out = true
 
 	return out
+}
+
+// averageNumber : took about 15 mins
+func averageNumber(in string) (out float32) {
+	sliceContainer := strings.Split(in, "-")
+	numbersCount := 0
+	numbersSum := 0
+
+	for _, st := range sliceContainer {
+
+		if strings.ContainsAny("0123456789", st) {
+			// count the numbers
+			numbersCount += len(st)
+
+			// loop through the substrings that contains numbers
+			for _, num := range st {
+				intVar, err := strconv.Atoi(string(num))
+				if err != nil {
+					return float32(-1)
+				}
+				numbersSum += intVar
+			}
+		}
+
+	}
+
+	return float32(numbersSum / numbersCount)
+
 }
