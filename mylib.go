@@ -94,36 +94,45 @@ func wholeStory(in string) (out string, err error) {
 }
 
 // storyStats : it took a about 30 mins
-func storyStats(in string) (short, long string, avg float32, listWithAvg []string) {
+func storyStats(in string) (short, long string, avg int, listWithAvg []string, err error) {
 	sliceContainer := strings.Split(in, "-")
-	shortWordLength := 0
+	shortWordLength := 100
 	longWordLength := 0
-	wordsCount := 0
-	wordsSum := 0
+	wordsCount := 0.0
+	wordsSum := 0.0
+	var onlyWords []string
 
-	for i, st := range sliceContainer {
+	for _, st := range sliceContainer {
 
 		if strings.ContainsAny("abcdefghijklmnopqrstuvwxyz", strings.ToLower(st)) {
-			if i == 0 {
-				shortWordLength = len(st)
-				longWordLength = len(st)
-			}
-			if len(st) < shortWordLength {
-				shortWordLength = len(st)
-				short = st
 
-			}
-			if len(st) > longWordLength {
-				longWordLength = len(st)
-				long = st
-			}
-
-			wordsCount += 1
-			wordsSum = len(st)
+			onlyWords = append(onlyWords, strings.ToLower(st))
 		}
+
+		wordsCount += 1
+		wordsSum += float64(len(st))
+
 	}
 
-	avg = float32(wordsSum / wordsCount)
+	shortWordLength, longWordLength = len(onlyWords[0]), len(onlyWords[0])
+	short, long = onlyWords[0], onlyWords[0]
+
+	for _, st := range onlyWords {
+
+		if len(st) > longWordLength {
+			longWordLength = len(st)
+			long = st
+		}
+
+		if len(st) < shortWordLength {
+			shortWordLength = len(st)
+			short = st
+
+		}
+
+	}
+
+	avg = int(math.Round(wordsSum / wordsCount))
 
 	for _, st := range sliceContainer {
 		if strings.ContainsAny("abcdefghijklmnopqrstuvwxyz", strings.ToLower(st)) {
