@@ -135,9 +135,9 @@ func storyStats(in string) (short, long string, avg float32, listWithAvg []strin
 // generate : this will likely take me longer than 30mins because of the spec string pattern
 func generate(in bool) (out string) {
 	if in {
-
+		return fmt.Sprintf("%s-%s-%s-%s", StringWithDigitset(2, digitset), StringWithCharset(4, charset), StringWithDigitset(2, digitset), StringWithCharset(4, charset))
 	}
-	return out
+	return fmt.Sprintf("%s-%s-%s-%s", StringWithCharset(4, charset), StringWithDigitset(2, digitset), StringWithDigitset(2, digitset), StringWithCharset(4, charset))
 }
 
 func StringWithCharset(length int, charset string) string {
