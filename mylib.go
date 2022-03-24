@@ -1,6 +1,7 @@
 package mylib
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -53,5 +54,29 @@ func averageNumber(in string) (out float32) {
 	}
 
 	return float32(numbersSum / numbersCount)
+
+}
+
+// wholeStory : took like 10 mins
+func wholeStory(in string) (out string) {
+	sliceContainer := strings.Split(in, "-")
+
+	var wordContainer string
+
+	for i, st := range sliceContainer {
+
+		if strings.ContainsAny("abcdefghijklmnopqrstuvwxyz", strings.ToLower(st)) {
+
+			if i == 1 {
+				wordContainer = st
+			} else {
+				wordContainer = fmt.Sprintf("%s %s", wordContainer, st)
+			}
+
+		}
+
+	}
+
+	return wordContainer
 
 }
