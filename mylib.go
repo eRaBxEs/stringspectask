@@ -2,6 +2,7 @@ package mylib
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -40,30 +41,31 @@ func testValidity(in string) (out bool, err error) {
 }
 
 // averageNumber : took about 15 mins
-func averageNumber(in string) (out float32) {
+func averageNumber(in string) (out int, err error) {
 	sliceContainer := strings.Split(in, "-")
-	numbersCount := 0
-	numbersSum := 0
+	numbersCount := 0.0
+	numbersSum := 0.0
 
 	for _, st := range sliceContainer {
 
 		if strings.ContainsAny("0123456789", st) {
 			// count the numbers
-			numbersCount += len(st)
+			numbersCount += float64(len(st))
 
 			// loop through the substrings that contains numbers
 			for _, num := range st {
 				intVar, err := strconv.Atoi(string(num))
 				if err != nil {
-					return float32(-1)
+					return -1, err
 				}
-				numbersSum += intVar
+				numbersSum += float64(intVar)
 			}
 		}
 
 	}
 
-	return float32(numbersSum / numbersCount)
+	avg := math.Round(numbersSum / numbersCount)
+	return int(avg), nil
 
 }
 
