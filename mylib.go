@@ -80,3 +80,46 @@ func wholeStory(in string) (out string) {
 	return wordContainer
 
 }
+
+// storyStats : it took a about 30 mins
+func storyStats(in string) (short, long string, avg float32, listWithAvg []string) {
+	sliceContainer := strings.Split(in, "-")
+	shortWordLength := 0
+	longWordLength := 0
+	wordsCount := 0
+	wordsSum := 0
+
+	for i, st := range sliceContainer {
+
+		if strings.ContainsAny("abcdefghijklmnopqrstuvwxyz", strings.ToLower(st)) {
+			if i == 0 {
+				shortWordLength = len(st)
+				longWordLength = len(st)
+			}
+			if len(st) < shortWordLength {
+				shortWordLength = len(st)
+				short = st
+
+			}
+			if len(st) > longWordLength {
+				longWordLength = len(st)
+				long = st
+			}
+
+			wordsCount += 1
+			wordsSum = len(st)
+		}
+	}
+
+	avg = float32(wordsSum / wordsCount)
+
+	for _, st := range sliceContainer {
+		if strings.ContainsAny("abcdefghijklmnopqrstuvwxyz", strings.ToLower(st)) {
+			if len(st) == int(avg) {
+				listWithAvg = append(listWithAvg, st)
+			}
+		}
+	}
+
+	return
+}
