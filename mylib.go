@@ -15,26 +15,28 @@ var seededRand *rand.Rand = rand.New(
 	rand.NewSource(time.Now().UnixNano()))
 
 // testValidity : took a little bit over 20 mins
-func testValidity(in string) (out bool) {
+func testValidity(in string) (out bool, err error) {
 	if len(in) == 0 {
-		return out
+		return out, nil
 	}
 
 	if !strings.ContainsAny(in, "-") {
-		return out
+		return out, nil
 	}
 
-	for _, r := range in {
+	for i, r := range in {
 
-		if !strings.ContainsAny("abcdefghijklmnopqrstuvwxyz0123456789", strings.ToLower(string(r))) {
-			return out
+		if i == 0 {
+			if !strings.Contains("abcdefghijklmnopqrstuvwxyz0123456789", strings.ToLower(string(r))) {
+				return out, nil
+			}
 		}
 
 	}
 
 	out = true
 
-	return out
+	return out, nil
 }
 
 // averageNumber : took about 15 mins
